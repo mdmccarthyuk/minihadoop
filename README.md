@@ -17,5 +17,5 @@ To build and run
 make up
 ```
 
-Initial Dockerfile based adapted from the base image here https://github.com/big-data-europe/docker-hadoop
+Initial Dockerfile adapted from the base image here https://github.com/big-data-europe/docker-hadoop
 

@@ -11,15 +11,24 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 ENV HADOOP_VERSION 2.6.5
 ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
+ENV HIVE_HOME /opt/hive
+ENV HIVE_VERSION 1.2.2 
+ENV HIVE_URL https://www.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
 
 RUN set -x \
     && curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz \
     && tar -xvf /tmp/hadoop.tar.gz -C /opt/ \
     && rm /tmp/hadoop.tar.gz*
 
+RUN set -x \
+    && curl -fSL "$HIVE_URL" -o /tmp/hive.tar.gz \
+    && tar -xvf /tmp/hive.tar.gz -C /opt/ \
+    && rm /tmp/hive.tar.gz
+
 RUN ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
 RUN mkdir /opt/hadoop-$HADOOP_VERSION/logs
 RUN ln -s /opt/hadoop-$HADOOP_VERSION /opt/hadoop
+RUN ln -s /opt/apache-hive-$HIVE_VERSION-bin /opt/hive
 
 ENV HADOOP_PREFIX=/opt/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=/etc/hadoop
@@ -44,6 +53,7 @@ EXPOSE 50075
 EXPOSE 9870
 EXPOSE 8088
 EXPOSE 8042
+EXPOSE 10000
 
 CMD ["/run.sh"]
 ENTRYPOINT ["/run.sh"]
