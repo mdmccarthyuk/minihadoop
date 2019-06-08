@@ -10,10 +10,6 @@ $HADOOP_PREFIX/bin/hdfs --config $HADOOP_CONF_DIR datanode &
 $HADOOP_PREFIX/bin/yarn --config $HADOOP_CONF_DIR resourcemanager &
 $HADOOP_PREFIX/bin/yarn --config $HADOOP_CONF_DIR nodemanager &
 
-# Remove old jline
-# See https://issues.apache.org/jira/browse/HIVE-8609
-#cp $HIVE_HOME
-
 $HADOOP_PREFIX/bin/hdfs dfs -mkdir /tmp
 $HADOOP_PREFIX/bin/hdfs dfs -mkdir /user
 $HADOOP_PREFIX/bin/hdfs dfs -mkdir /user/hive
