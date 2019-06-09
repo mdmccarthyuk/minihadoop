@@ -6,7 +6,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       curl \
       netcat \
       gnupg \
-      procps 
+      procps \
+      python
       
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 ENV HADOOP_VERSION 2.6.5
@@ -32,7 +33,7 @@ RUN ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
 RUN mkdir /opt/hadoop-$HADOOP_VERSION/logs
 RUN ln -s /opt/hadoop-$HADOOP_VERSION /opt/hadoop
 RUN ln -s /opt/apache-hive-$HIVE_VERSION-bin /opt/hive
-RUN ln -s /opt/apache-spark-$SPARK_VERSION-bin-without-hadoop /opt/spark
+RUN ln -s /opt/spark-$SPARK_VERSION-bin-without-hadoop /opt/spark
 
 ENV HADOOP_PREFIX=/opt/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=/etc/hadoop
