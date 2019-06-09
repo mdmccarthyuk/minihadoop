@@ -3,6 +3,7 @@ export HADOOP_PREFIX=/opt/hadoop
 export HIVE_HOME=/opt/hive
 export HADOOP_CONF_DIR=/etc/hadoop
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export SPARK_DIST_CLASSPATH=`$HADOOP_PREFIX/bin/hadoop classpath`
 
 $HADOOP_PREFIX/bin/hdfs --config $HADOOP_CONF_DIR namenode -format
 $HADOOP_PREFIX/bin/hdfs --config $HADOOP_CONF_DIR namenode &

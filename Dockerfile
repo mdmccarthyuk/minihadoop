@@ -14,13 +14,16 @@ ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/
 ENV HIVE_HOME /opt/hive
 ENV HIVE_VERSION 1.2.2 
 ENV HIVE_URL https://www.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
+ENV SPARK_VERSION 1.6.0
+ENV SPARK_URL https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
 RUN set -x \
     && curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz \
     && tar -xvf /tmp/hadoop.tar.gz -C /opt/ \
-    && rm /tmp/hadoop.tar.gz*
-
-RUN set -x \
+    && rm /tmp/hadoop.tar.gz \
+    && curl -fSL "$SPARK_URL" -o /tmp/spark.tar.gz \
+    && tar -xvf /tmp/spark.tar.gz -C /opt/ \
+    && rm /tmp/spark.tar.gz \
     && curl -fSL "$HIVE_URL" -o /tmp/hive.tar.gz \
     && tar -xvf /tmp/hive.tar.gz -C /opt/ \
     && rm /tmp/hive.tar.gz
@@ -29,6 +32,7 @@ RUN ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
 RUN mkdir /opt/hadoop-$HADOOP_VERSION/logs
 RUN ln -s /opt/hadoop-$HADOOP_VERSION /opt/hadoop
 RUN ln -s /opt/apache-hive-$HIVE_VERSION-bin /opt/hive
+RUN ln -s /opt/apache-spark-$SPARK_VERSION-bin-without-hadoop /opt/spark
 
 ENV HADOOP_PREFIX=/opt/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=/etc/hadoop
